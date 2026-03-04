@@ -7,9 +7,9 @@
   #zoom-wrap .map {
     transform: none !important;
     width: auto !important;
-    height: 100vh !important;
+    height: auto !important;
     max-width: none !important;
-    max-height: 100vh !important;
+    max-height: none !important;
     object-fit: unset !important;
     display: block;
   }
