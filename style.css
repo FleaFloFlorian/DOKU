@@ -787,7 +787,6 @@ body::before {
 #zoom-wrap .map {
   transform: scale(0.83333); /* 1/1.15 to counteract the parent zoom */
   transform-origin: top left;
-  width: 120vw !important; /* restore original width visually */
   max-width: none !important;
 }
 
