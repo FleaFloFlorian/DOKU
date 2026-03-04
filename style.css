@@ -1,5 +1,4 @@
 
-
 #splash-screen {
     position: fixed; /* Positioniert den Splash Screen fix über allem */
     top: 0;
@@ -736,6 +735,7 @@ body::before {
 #zoom-wrap .map {
   transform: scale(0.83333); /* 1/1.15 to counteract the parent zoom */
   transform-origin: top left;
+
   max-width: none !important;
 }
 
