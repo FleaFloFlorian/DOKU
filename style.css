@@ -126,8 +126,7 @@
   .dot {
     width: 7px !important;
     height: 7px !important;
-  }
-}
+  } 
 
 #splash-screen {
     position: fixed; /* Positioniert den Splash Screen fix über allem */
