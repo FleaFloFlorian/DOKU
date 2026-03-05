@@ -37,7 +37,8 @@ document.addEventListener("DOMContentLoaded", function() {
         if (!splash) return;
         if (splash.classList.contains('splash-hidden')) return; // already hidden
         if (e.key === 'a' || e.key === 'A') {
-            showMain();
+            // Simulate a click on the start button to unlock audio
+            if (startBtn) startBtn.click();
         }
     });
 });
@@ -58,6 +59,46 @@ document.addEventListener('DOMContentLoaded', () => {
     "Du musst 7 Sachen finden~! ♪",
     "Von Flo, digitale Grundlagen, WiSe 25/26. ✿"
   ];
+  
+  // Animalese audio files for each speech bubble
+  const lollySounds = [
+    new Audio('assets/animalese.wav'),
+    new Audio('assets/animalese-2.wav')
+  ];
+  // Pre-load the audio
+  lollySounds.forEach(audio => {
+    audio.preload = 'auto';
+    audio.volume = 0.5; // adjust volume as needed
+    audio.load(); // force preload
+  });
+  
+  // Unlock audio on first user interaction (required by browser autoplay policy)
+  function unlockAudio() {
+    lollySounds.forEach(audio => {
+      // Mute, play briefly, then unmute to unlock silently
+      const originalVolume = audio.volume;
+      audio.volume = 0;
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          audio.pause();
+          audio.currentTime = 0;
+          audio.volume = originalVolume;
+        }).catch(() => {
+          audio.volume = originalVolume;
+        });
+      } else {
+        audio.volume = originalVolume;
+      }
+    });
+  }
+  
+  // Listen for start button click to unlock audio
+  const startBtnForAudio = document.getElementById('startBtn');
+  if (startBtnForAudio) {
+    startBtnForAudio.addEventListener('click', unlockAudio, { once: true });
+  }
+  
   let currentStopIndex = 0; // track which stop we're at
 
   // config
@@ -188,19 +229,33 @@ document.addEventListener('DOMContentLoaded', () => {
     return false;
   }
 
-  // Show speech bubble at Lolly's position with a phrase
-  function showSpeechBubble(phrase, x, y) {
+  // Show speech bubble at Lolly's position with a phrase and play sound
+  function showSpeechBubble(phrase, x, y, stopIndex) {
     if (!speechBubble || !speechText) return;
     speechText.textContent = phrase;
     speechBubble.style.left = x + 'px';
     speechBubble.style.top = y + 'px';
     speechBubble.classList.remove('hidden');
+    
+    // Play the corresponding animalese sound
+    if (lollySounds[stopIndex]) {
+      lollySounds[stopIndex].currentTime = 0; // reset to start
+      lollySounds[stopIndex].play().catch(e => {
+        // Ignore autoplay errors (browser may block if no user interaction)
+        console.log('Audio play blocked:', e);
+      });
+    }
   }
 
-  // Hide speech bubble
+  // Hide speech bubble and stop any playing audio
   function hideSpeechBubble() {
     if (!speechBubble) return;
     speechBubble.classList.add('hidden');
+    // Stop all sounds
+    lollySounds.forEach(audio => {
+      audio.pause();
+      audio.currentTime = 0;
+    });
   }
 
   function setSpriteFrameIndex(srcIndex) {
@@ -354,9 +409,9 @@ document.addEventListener('DOMContentLoaded', () => {
           const stopBx = (stopU * stopU * P0x) + (2 * stopU * stopT * P1x) + (stopT * stopT * P2x);
           const stopBy = (stopU * stopU * P0y) + (2 * stopU * stopT * P1y) + (stopT * stopT * P2y);
           
-          // Show speech bubble with phrase for this stop
+          // Show speech bubble with phrase for this stop and play corresponding sound
           const phrase = lollyPhrases[i] || "...";
-          showSpeechBubble(phrase, stopBx + 40, stopBy); // offset to center above Lolly
+          showSpeechBubble(phrase, stopBx + 40, stopBy, i); // pass stop index for audio
           
           // Hide speech bubble when pause ends
           setTimeout(() => {
