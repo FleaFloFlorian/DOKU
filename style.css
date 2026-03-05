@@ -821,42 +821,9 @@ body::before {
     height: auto !important;
   }
   
-  /* Navigation arrows - FIXED position, larger touch targets */
-  .arrow {
-    position: fixed !important;
-    top: 50% !important;
-    transform: translateY(-50%) !important;
-    width: 50px !important;
-    height: 50px !important;
-    background: rgba(0,0,0,0.7) !important;
-    border-radius: 50% !important;
-    z-index: 9999 !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-  }
-  
-  .arrow-prev {
-    left: 10px !important;
-    right: auto !important;
-  }
-  
-  .arrow-next {
-    right: 10px !important;
-    left: auto !important;
-  }
-  
-  /* Arrow icons - add visible indicators */
-  .arrow-prev::before {
-    content: '◀' !important;
-    color: white !important;
-    font-size: 20px !important;
-  }
-  
-  .arrow-next::before {
-    content: '▶' !important;
-    color: white !important;
-    font-size: 20px !important;
+  /* MOBILE ARROWS FIX: Hide all arrows by default */
+  .panel-gallery .slide .arrow {
+    display: none !important;
   }
   
   /* Dots navigation - larger for touch */
@@ -874,6 +841,89 @@ body::before {
   .cabana-tabs {
     width: 100% !important;
     max-width: 100% !important;
+  }
+  
+  /* MOBILE ARROWS: Show only arrows from the ACTIVE slide (z-index: 2) */
+  .slides-controls > input.slide-radio:nth-of-type(1):checked ~ .slides .slide:nth-of-type(1) .arrow,
+  .slides-controls > input.slide-radio:nth-of-type(2):checked ~ .slides .slide:nth-of-type(2) .arrow,
+  .slides-controls > input.slide-radio:nth-of-type(3):checked ~ .slides .slide:nth-of-type(3) .arrow,
+  .slides-controls > input.slide-radio:nth-of-type(4):checked ~ .slides .slide:nth-of-type(4) .arrow,
+  .slides-controls > input.slide-radio:nth-of-type(5):checked ~ .slides .slide:nth-of-type(5) .arrow,
+  .slides-controls > input.slide-radio:nth-of-type(6):checked ~ .slides .slide:nth-of-type(6) .arrow,
+  .slides-controls > input.slide-radio:nth-of-type(7):checked ~ .slides .slide:nth-of-type(7) .arrow,
+  .slides-controls > input.slide-radio:nth-of-type(8):checked ~ .slides .slide:nth-of-type(8) .arrow,
+  .slides-controls > input.slide-radio:nth-of-type(9):checked ~ .slides .slide:nth-of-type(9) .arrow,
+  .slides-controls > input.slide-radio:nth-of-type(10):checked ~ .slides .slide:nth-of-type(10) .arrow,
+  .slides-controls > input.slide-radio:nth-of-type(11):checked ~ .slides .slide:nth-of-type(11) .arrow,
+  .slides-controls > input.slide-radio:nth-of-type(12):checked ~ .slides .slide:nth-of-type(12) .arrow,
+  .slides-controls > input.slide-radio:nth-of-type(13):checked ~ .slides .slide:nth-of-type(13) .arrow,
+  .slides-controls > input.slide-radio:nth-of-type(14):checked ~ .slides .slide:nth-of-type(14) .arrow,
+  .slides-controls > input.slide-radio:nth-of-type(15):checked ~ .slides .slide:nth-of-type(15) .arrow {
+    display: flex !important;
+    position: fixed !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    width: 50px !important;
+    height: 50px !important;
+    background: rgba(0,0,0,0.7) !important;
+    border-radius: 50% !important;
+    z-index: 10000 !important;
+    align-items: center !important;
+    justify-content: center !important;
+    pointer-events: auto !important;
+  }
+  
+  /* Position prev arrows on left */
+  .slides-controls > input.slide-radio:nth-of-type(1):checked ~ .slides .slide:nth-of-type(1) .arrow-prev,
+  .slides-controls > input.slide-radio:nth-of-type(2):checked ~ .slides .slide:nth-of-type(2) .arrow-prev,
+  .slides-controls > input.slide-radio:nth-of-type(3):checked ~ .slides .slide:nth-of-type(3) .arrow-prev,
+  .slides-controls > input.slide-radio:nth-of-type(4):checked ~ .slides .slide:nth-of-type(4) .arrow-prev,
+  .slides-controls > input.slide-radio:nth-of-type(5):checked ~ .slides .slide:nth-of-type(5) .arrow-prev,
+  .slides-controls > input.slide-radio:nth-of-type(6):checked ~ .slides .slide:nth-of-type(6) .arrow-prev,
+  .slides-controls > input.slide-radio:nth-of-type(7):checked ~ .slides .slide:nth-of-type(7) .arrow-prev,
+  .slides-controls > input.slide-radio:nth-of-type(8):checked ~ .slides .slide:nth-of-type(8) .arrow-prev,
+  .slides-controls > input.slide-radio:nth-of-type(9):checked ~ .slides .slide:nth-of-type(9) .arrow-prev,
+  .slides-controls > input.slide-radio:nth-of-type(10):checked ~ .slides .slide:nth-of-type(10) .arrow-prev,
+  .slides-controls > input.slide-radio:nth-of-type(11):checked ~ .slides .slide:nth-of-type(11) .arrow-prev,
+  .slides-controls > input.slide-radio:nth-of-type(12):checked ~ .slides .slide:nth-of-type(12) .arrow-prev,
+  .slides-controls > input.slide-radio:nth-of-type(13):checked ~ .slides .slide:nth-of-type(13) .arrow-prev,
+  .slides-controls > input.slide-radio:nth-of-type(14):checked ~ .slides .slide:nth-of-type(14) .arrow-prev,
+  .slides-controls > input.slide-radio:nth-of-type(15):checked ~ .slides .slide:nth-of-type(15) .arrow-prev {
+    left: 10px !important;
+    right: auto !important;
+  }
+  
+  /* Position next arrows on right */
+  .slides-controls > input.slide-radio:nth-of-type(1):checked ~ .slides .slide:nth-of-type(1) .arrow-next,
+  .slides-controls > input.slide-radio:nth-of-type(2):checked ~ .slides .slide:nth-of-type(2) .arrow-next,
+  .slides-controls > input.slide-radio:nth-of-type(3):checked ~ .slides .slide:nth-of-type(3) .arrow-next,
+  .slides-controls > input.slide-radio:nth-of-type(4):checked ~ .slides .slide:nth-of-type(4) .arrow-next,
+  .slides-controls > input.slide-radio:nth-of-type(5):checked ~ .slides .slide:nth-of-type(5) .arrow-next,
+  .slides-controls > input.slide-radio:nth-of-type(6):checked ~ .slides .slide:nth-of-type(6) .arrow-next,
+  .slides-controls > input.slide-radio:nth-of-type(7):checked ~ .slides .slide:nth-of-type(7) .arrow-next,
+  .slides-controls > input.slide-radio:nth-of-type(8):checked ~ .slides .slide:nth-of-type(8) .arrow-next,
+  .slides-controls > input.slide-radio:nth-of-type(9):checked ~ .slides .slide:nth-of-type(9) .arrow-next,
+  .slides-controls > input.slide-radio:nth-of-type(10):checked ~ .slides .slide:nth-of-type(10) .arrow-next,
+  .slides-controls > input.slide-radio:nth-of-type(11):checked ~ .slides .slide:nth-of-type(11) .arrow-next,
+  .slides-controls > input.slide-radio:nth-of-type(12):checked ~ .slides .slide:nth-of-type(12) .arrow-next,
+  .slides-controls > input.slide-radio:nth-of-type(13):checked ~ .slides .slide:nth-of-type(13) .arrow-next,
+  .slides-controls > input.slide-radio:nth-of-type(14):checked ~ .slides .slide:nth-of-type(14) .arrow-next,
+  .slides-controls > input.slide-radio:nth-of-type(15):checked ~ .slides .slide:nth-of-type(15) .arrow-next {
+    right: 10px !important;
+    left: auto !important;
+  }
+  
+  /* Arrow icons - add visible indicators */
+  .arrow-prev::before {
+    content: '◀' !important;
+    color: white !important;
+    font-size: 20px !important;
+  }
+  
+  .arrow-next::before {
+    content: '▶' !important;
+    color: white !important;
+    font-size: 20px !important;
   }
 }
 
